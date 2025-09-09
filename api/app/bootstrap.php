@@ -26,7 +26,7 @@ date_default_timezone_set(env('APP_TZ', 'UTC'));
 // --- Error verbosity by env ---
 if (env('APP_ENV', 'production') !== 'production') {
   ini_set('display_errors', '1');
-  error_reporting(EALL);
+  error_reporting(E_ALL);
 } else {
   ini_set('display_errors', '0');
   error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
