@@ -50,6 +50,11 @@ header("Content-Security-Policy: default-src 'none'; frame-ancestors 'none'; bas
 
 // --- Path & Method (with optional override) ---
 $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?: '/';
+$base = rtrim(str_replace('\\','/', dirname($_SERVER['SCRIPT_NAME'] ?? '')), '/');
+if ($base && $base !== '/' && str_starts_with($path, $base)) {
+  $path = substr($path, strlen($base)) ?: '/';
+}
+
 $method = $_SERVER['REQUEST_METHOD'];
 if ($method === 'POST') {
   $override = $_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE'] ?? null;

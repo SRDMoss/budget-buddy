@@ -49,7 +49,7 @@ function GuestOnly({ children }) {
 export default function App() {
   return (
     <AuthProvider>
-      <BrowserRouter basename="/budget-buddy">
+      <BrowserRouter>
         <Nav />
         <Routes>
           {/* Auth pages */}

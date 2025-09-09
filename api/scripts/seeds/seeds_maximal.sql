@@ -4,7 +4,7 @@
 START TRANSACTION;
 
 -- set your user id
-SET @uid := 2;
+SET @uid := 1;
 
 -- categories (unique per user by name)
 INSERT INTO categories (user_id, name, color_hex, is_archived, created_at)
