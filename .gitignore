@@ -38,4 +38,5 @@ coverage/
 Thumbs.db
 
 # Other
-polish/
+polish/api/.env
+api/.env
