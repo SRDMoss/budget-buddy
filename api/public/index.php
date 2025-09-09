@@ -38,12 +38,12 @@ if ($origin !== '' && !$corsOk) {
 }
 
 // --- Security Headers ---
-header('X-Content-Type-Options: nosniff');                 // no MIME sniff
-header('X-Frame-Options: DENY');                           // no clickjacking
+header('X-Content-Type-Options: nosniff');
+header('X-Frame-Options: DENY');
 header('Referrer-Policy: strict-origin-when-cross-origin');
 header('Cross-Origin-Resource-Policy: same-site');
-header('Cross-Origin-Opener-Policy: same-origin');         // isolate browsing context (API safe)
-header('Permissions-Policy: geolocation=(), camera=(), microphone=()'); // lock down sensors
+header('Cross-Origin-Opener-Policy: same-origin');
+header('Permissions-Policy: geolocation=(), camera=(), microphone=()');
 
 // Content Security Policy:
 header("Content-Security-Policy: default-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'");
@@ -78,69 +78,44 @@ $tx  = new TransactionsController();
 $rep = new ReportsController();
 
 // --- Categories ---
-// LIST
 $router->add('GET', '#^/categories/?$#', [$cat, 'index']);
-
-// CREATE
 $router->add('POST', '#^/categories/?$#', function () use ($cat) {
-  if (strtolower((string)env('AUTH_DRIVER','session')) === 'session') {
-    \App\Core\Csrf::requireToken();
-  }
+  if (strtolower((string)env('AUTH_DRIVER','session')) === 'session') \App\Core\Csrf::requireToken();
   \App\Core\Http::requireJson();
   $cat->create();
 });
-
-// UPDATE (PATCH)
 $router->add('PATCH', '#^/categories/(\d+)$#', function ($id) use ($cat) {
-  if (strtolower((string)env('AUTH_DRIVER','session')) === 'session') {
-    \App\Core\Csrf::requireToken();
-  }
+  if (strtolower((string)env('AUTH_DRIVER','session')) === 'session') \App\Core\Csrf::requireToken();
   \App\Core\Http::requireJson();
   $cat->update((int)$id);
 });
-
-// DELETE
 $router->add('DELETE', '#^/categories/(\d+)$#', function ($id) use ($cat) {
-  if (strtolower((string)env('AUTH_DRIVER','session')) === 'session') {
-    \App\Core\Csrf::requireToken();
-  }
+  if (strtolower((string)env('AUTH_DRIVER','session')) === 'session') \App\Core\Csrf::requireToken();
   \App\Core\Http::requireJson();
   $cat->destroy((int)$id);
 });
 
 // --- Transactions ---
-// LIST (with filters)
 $router->add('GET', '#^/transactions/?$#', [$tx, 'index']);
-
-// CREATE
 $router->add('POST', '#^/transactions/?$#', function () use ($tx) {
-  if (strtolower((string)env('AUTH_DRIVER','session')) === 'session') {
-    \App\Core\Csrf::requireToken();
-  }
+  if (strtolower((string)env('AUTH_DRIVER','session')) === 'session') \App\Core\Csrf::requireToken();
   \App\Core\Http::requireJson();
   $tx->create();
 });
-
-// UPDATE (PATCH)
 $router->add('PATCH', '#^/transactions/(\d+)$#', function ($id) use ($tx) {
-  if (strtolower((string)env('AUTH_DRIVER','session')) === 'session') {
-    \App\Core\Csrf::requireToken();
-  }
+  if (strtolower((string)env('AUTH_DRIVER','session')) === 'session') \App\Core\Csrf::requireToken();
   \App\Core\Http::requireJson();
   $tx->update((int)$id);
 });
-
-// DELETE
 $router->add('DELETE', '#^/transactions/(\d+)$#', function ($id) use ($tx) {
-  if (strtolower((string)env('AUTH_DRIVER','session')) === 'session') {
-    \App\Core\Csrf::requireToken();
-  }
+  if (strtolower((string)env('AUTH_DRIVER','session')) === 'session') \App\Core\Csrf::requireToken();
   \App\Core\Http::requireJson();
   $tx->destroy((int)$id);
 });
 
 // --- Reports ---
 $router->add('GET', '#^/reports/month$#', [$rep, 'month']);
+$router->add('GET', '#^/reports/year$#',  [$rep, 'year']); // ✅ add year endpoint in the same style
 
-// 🔚 Dispatch MUST be last, after all routes are registered
+// 🔚 Dispatch
 $router->dispatch($method, $path);

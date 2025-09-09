@@ -35,27 +35,27 @@
 8. **X Transactions module**
    - CRUD endpoints (filters: month, category, type).
 
-9. **Reports module**
+9. **X Reports module**
    - Monthly totals, category breakdown.
 
-10. **Error handling & logging**
+10. **X Error handling & logging**
     - Central exception handler.
     - Structured logs, hide stack traces.
 
-11. **React app scaffold**
+11. **X React app scaffold**
     - Vite + React project structure.
 
-12. **Auth UI**
+12. **X Auth UI**
     - Login/register forms.
     - Auth context/hook.
 
-13. **Categories UI**
+13. **X Categories UI**
     - Table + modals.
 
-14. **Transactions UI**
+14. **X Transactions UI**
     - Table with filters + modals.
 
-15. **Dashboard UI**
+15. **X Dashboard UI**
     - Summary cards + charts.
 
 16. **Client–API integration**

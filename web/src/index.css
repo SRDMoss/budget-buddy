@@ -1,0 +1,108 @@
+:root {
+  color-scheme: light dark; 
+  font-family: system-ui, 
+  -apple-system, Segoe UI, Roboto, sans-serif; }
+
+body { 
+  margin: 0; 
+}
+
+.container { 
+  max-width: 920px; 
+  margin: 0 auto; 
+  padding: 1rem; 
+}
+
+.card { 
+  border: 1px solid #ddd; 
+  border-radius: 12px; 
+  padding: 1rem; 
+  margin: .75rem 0; 
+  background: #fff; 
+}
+
+.row { display: flex; 
+  gap: .5rem; 
+  flex-wrap: wrap; 
+}
+
+input, select, button { 
+  padding: .6rem .75rem; 
+  border-radius: 8px; 
+  border: 1px solid #bbb; 
+}
+
+
+button { 
+  cursor: pointer; 
+}
+
+label { 
+  font-size: .9rem; 
+  color: #444; 
+}
+
+.table { 
+  width: 100%; 
+  border-collapse: collapse; 
+}
+
+.table th, .table td { 
+  border-bottom: 1px solid #eee; 
+  padding: .5rem .25rem; 
+  text-align: left; 
+}
+
+.nav { 
+  display:flex; 
+  gap: .75rem; 
+  margin-bottom: 1rem; 
+}
+
+.nav a { 
+  text-decoration:none; 
+  padding:.4rem .6rem; 
+  border-radius:8px; 
+  border:1px solid #ddd; 
+}
+
+.error { 
+  color: #b00020; 
+}
+
+.success { 
+  color: #0a7a3a; 
+}
+
+/* Make the nav a flex row and center items vertically */
+.nav {
+  display: flex;
+  align-items: center;     /* 👈 vertical centering */
+  gap: .75rem;
+  margin-bottom: 1rem;
+}
+
+/* Normalize the title element (b or h3) */
+.nav b,
+.nav h1, .nav h2, .nav h3, .nav h4, .nav h5, .nav h6 {
+  margin: 0;              /* remove default heading margins */
+  line-height: 1;         /* so it centers properly */
+  display: flex;
+  align-items: center;
+}
+
+.nav h1, .nav h2 {
+  color: darkgreen
+}
+/* Make links/buttons align like the title */
+.nav a,
+.nav button,
+.nav span {
+  display: inline-flex;   /* align text inside controls */
+  align-items: center;
+  line-height: 1;
+  height: 32px;           /* consistent control height */
+}
+
+/* Optional: keep the right-side controls pushed right without inline style */
+.nav .spacer { margin-left: auto; }

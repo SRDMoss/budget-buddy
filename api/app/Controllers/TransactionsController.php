@@ -12,7 +12,8 @@ class TransactionsController {
   /**
    * GET /transactions
    * Filters:
-   *   ?month=YYYY-MM        (e.g., 2025-09)
+   *   ?month=YYYY-MM        (e.g., 2025-09)   // mutually exclusive with year
+   *   ?year=YYYY            (e.g., 2025)      // mutually exclusive with month
    *   ?category_id=123
    *   ?type=income|expense
    *   ?limit=50&offset=0
@@ -22,6 +23,7 @@ class TransactionsController {
     $pdo   = DB::pdo();
 
     $month      = $_GET['month']       ?? null;
+    $year       = $_GET['year']        ?? null; // NEW
     $categoryId = $_GET['category_id'] ?? null;
     $type       = $_GET['type']        ?? null;
     $limit      = isset($_GET['limit'])  ? max(1, min(200, (int)$_GET['limit'])) : 50;
@@ -30,12 +32,20 @@ class TransactionsController {
     $where  = ['t.user_id = ?'];
     $params = [$uid];
 
-    // month=YYYY-MM → [from, to)
+    // Apply a period filter:
+    // - month=YYYY-MM → [from, to)
+    // - else year=YYYY → [from, to)
     if ($month) {
       if (!preg_match('/^\d{4}-\d{2}$/', $month)) { Responder::error('Invalid month (use YYYY-MM)', 422); return; }
       [$y, $m] = array_map('intval', explode('-', $month));
       $from = sprintf('%04d-%02d-01', $y, $m);
       $to   = date('Y-m-d', strtotime("$from +1 month"));
+      $where[]  = '(t.txn_date >= ? AND t.txn_date < ?)';
+      $params[] = $from; $params[] = $to;
+    } elseif ($year) {
+      if (!preg_match('/^\d{4}$/', $year)) { Responder::error('Invalid year (use YYYY)', 422); return; }
+      $from = sprintf('%04d-01-01', (int)$year);
+      $to   = sprintf('%04d-01-01', (int)$year + 1);
       $where[]  = '(t.txn_date >= ? AND t.txn_date < ?)';
       $params[] = $from; $params[] = $to;
     }
