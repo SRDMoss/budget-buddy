@@ -93,8 +93,9 @@ export default function Login() {
                 padding: '0.5rem 0.6rem',
               }}
             >
-              <strong>Demo account</strong> (resets nightly):&nbsp;
-              Email <code>demo@bb.local</code>, Password <code>password</code>
+              <strong>Demo account</strong> (resets nightly):<br />
+              Email: <code>demo@bb.local</code><br />
+              Password: <code>password</code>
             </div>
           </div>
         </form>
