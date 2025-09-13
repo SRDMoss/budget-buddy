@@ -6,6 +6,18 @@ const fmt = (n) => {
   return Number(n).toFixed(2);
 };
 
+// Small category badge with color dot
+function Cat({ name, color }) {
+  if (!name) return '—';
+  const dot = {
+    display:'inline-block', width:10, height:10, borderRadius:'50%',
+    backgroundColor: color || '#cbd5e1', border: '1px solid #0001'
+  };
+  return <span style={{display:'inline-flex',alignItems:'center',gap:6}}>
+    <span style={dot} />{name}
+  </span>;
+}
+
 export default function Transactions() {
   // Period controls
   const [mode, setMode] = useState('month'); // 'month' | 'year'
@@ -185,7 +197,7 @@ export default function Transactions() {
               <tr key={r.id}>
                 <td>{r.txn_date}</td>
                 <td>{r.type}</td>
-                <td>{r.category_name || '—'}</td>
+                <td><Cat name={r.category_name} color={r.category_color} /></td>
                 <td>{r.payee || '—'}</td>
                 <td style={{ textAlign:'right' }}>${fmt(r.amount)}</td>
               </tr>
