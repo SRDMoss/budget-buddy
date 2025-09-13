@@ -45,7 +45,7 @@ export default function Login() {
                 autoComplete="username"
                 placeholder="you@example.com"
                 required
-                style={{ width: '100%' }}
+                style={{ width: '90%' }}
               />
             </div>
 
@@ -61,7 +61,7 @@ export default function Login() {
                 autoComplete="current-password"
                 placeholder="••••••••"
                 required
-                style={{ width: '100%' }}
+                style={{ width: '90%' }}
               />
             </div>
           </div>
